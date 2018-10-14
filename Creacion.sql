@@ -5,7 +5,7 @@ USE TeConstruye;
 
 
 CREATE TABLE Cliente(
-	cedula			int				Not null,
+	cedula			varchar(9)		Not null,
 	nombre			varchar(20)		Not null,
 	apellido1		varchar(20)		Not null,
 	apellido2		varchar(20)		Not null		default '',
@@ -18,7 +18,7 @@ CREATE TABLE Cliente(
 CREATE TABLE Proyecto(
 	id				int				Not null		IDENTITY(1,1),
 	ubicacion		varchar(60)		Not null,		
-	id_cliente		int				Not null,
+	id_cliente		varchar(9)		Not null,
 	Primary Key (id),
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE Proyecto(
 CREATE TABLE Anotaciones(
 	id				int				Not null		IDENTITY(1,1),
 	id_proyecto		int				Not null,
-	fecha			datetime		Not null,
+	fecha			date			Not null,
 	Primary Key (id),
 );
 
@@ -37,25 +37,26 @@ CREATE TABLE Etapas(
 	nombre			varchar(40)		Not null,
 	descripcion		varchar(60)		Not null,
 	estado			bit				Not null		default 0,
-	fecha_inicio	datetime		Not null,
-	fecha_fin		datetime		Not null,
+	fecha_inicio	date			Not null,
+	fecha_fin		date		Not null,
 	Primary Key (id),
 );
 
 
 CREATE TABLE Empleado(
-	cedula			int				Not null,
+	id				int				Not null		IDENTITY(1,1),
+	cedula			varchar(9)		Not null		unique,
 	nombre			varchar(20)		Not null,
 	apellido1		varchar(20)		Not null,
 	apellido2		varchar(20)		Not null		default '',
 	telefono		varchar(15)		Not null		default '',
-	Primary Key (cedula),
+	Primary Key (id),
 );
 
 
 CREATE TABLE Roles(
 	id				int				Not null,
-	cedula_empleado	int				Not null,
+	cedula_empleado	varchar(9)				Not null,
 	Primary Key (id, cedula_empleado),
 );
 
@@ -63,15 +64,15 @@ CREATE TABLE Roles(
 CREATE TABLE Horas_laboradas(
 	id_proyecto		int				Not null,
 	id_empleado		int				Not null,
-	Fecha			datetime		Not null		default '',
-	Horas			int				Not null		default 0,
+	fecha			date			Not null		default '',
+	horas			int				Not null		default 0,
 	Primary Key (id_proyecto, id_empleado),
 );
 
 
 CREATE TABLE Materiales(
-	id				int				Not null,
-	nombre			varchar(20)		Not null,
+	id				int				Not null		IDENTITY(1,1),
+	nombre			varchar(40)		Not null,
 	detalle			varchar(40)		Not null,
 	precio			int				Not null,
 	Primary Key (id),
@@ -108,18 +109,15 @@ CREATE TABLE Proveedor(
 
 CREATE TABLE Factura(
 	id				int				Not null		IDENTITY(1,1),
-	fecha			datetime		Not null,
+	fecha			date			Not null,
 	serial			int				Not null		unique,
 	id_etapa		int				Not null,
 	id_proveedor	int				Not null,
 	Primary Key(id)
 );
 
-ALTER TABLE Cliente
-Add constraint cliente_cedula check (cedula>=100000000);
 
-ALTER TABLE Empleado
-Add constraint empleado_cedula check (cedula>=100000000);
+
 
 ALTER TABLE Proyecto
 ADD Foreign Key (id_cliente) References Cliente(cedula);
@@ -138,12 +136,13 @@ ADD Foreign Key (id_proyecto) References Proyecto(id);
 
 
 ALTER TABLE Roles
-ADD Foreign Key (cedula_empleado) References Empleado(cedula);
+ADD Foreign Key (cedula_empleado) References Empleado(id);
 
 
 ALTER TABLE Horas_laboradas
 ADD Foreign Key (id_proyecto) References Proyecto(id),
-	Foreign Key (id_empleado) References Empleado(cedula);
+	Foreign Key (id_empleado) References Empleado(id),
+	constraint horas_positivo check (horas>=0);
 
 ALTER TABLE Materiales
 Add constraint m_precio_positivo check (precio>=0);
@@ -153,7 +152,9 @@ Add constraint d_precio_positivo check (precio>=0);
 
 ALTER TABLE MaterialesxEtapa
 ADD Foreign Key (id_etapa) References Etapas(id),
-	Foreign Key (id_material) References Materiales(id);
+	Foreign Key (id_material) References Materiales(id),
+	constraint costo_positivo check (costo>=0);
+
 
 ALTER TABLE Factura
 ADD Foreign Key (id_etapa) References Etapas(id),
