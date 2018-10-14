@@ -26,6 +26,7 @@ CREATE TABLE Proyecto(
 CREATE TABLE Anotaciones(
 	id				int				Not null		IDENTITY(1,1),
 	id_proyecto		int				Not null,
+	anotacion		varchar(40),	Not null,
 	fecha			date			Not null,
 	Primary Key (id),
 );
@@ -55,10 +56,12 @@ CREATE TABLE Empleado(
 
 
 CREATE TABLE Roles(
-	id				int				Not null,
-	cedula_empleado	varchar(9)				Not null,
-	Primary Key (id, cedula_empleado),
+	id_rol				int			Not null		IDENTITY(1,1),
+	id_empleado			int			Not null,
+	rol					varchar(15)	Not null,
+	Primary Key (id_rol, id_empleado),
 );
+
 
 
 CREATE TABLE Horas_laboradas(
@@ -72,8 +75,8 @@ CREATE TABLE Horas_laboradas(
 
 CREATE TABLE Materiales(
 	id				int				Not null		IDENTITY(1,1),
-	nombre			varchar(40)		Not null,
-	detalle			varchar(40)		Not null,
+	nombre			varchar(60)		Not null,
+	detalle			varchar(60)		Not null,
 	precio			int				Not null,
 	Primary Key (id),
 );
@@ -100,8 +103,8 @@ CREATE TABLE Detalle(
 
 
 CREATE TABLE Proveedor(
-	id				int				Not null,
-	nombre			varchar(40)		Not null,
+	id				int				Not null		IDENTITY(1,1),
+	nombre			varchar(20)		Not null,
 	Primary Key(id)
 
 );
@@ -119,8 +122,7 @@ CREATE TABLE Factura(
 
 
 
-ALTER TABLE Proyecto
-ADD Foreign Key (id_cliente) References Cliente(cedula);
+
 
 
 ALTER TABLE Proyecto
@@ -136,7 +138,7 @@ ADD Foreign Key (id_proyecto) References Proyecto(id);
 
 
 ALTER TABLE Roles
-ADD Foreign Key (cedula_empleado) References Empleado(id);
+ADD Foreign Key (id_empleado) References Empleado(id);
 
 
 ALTER TABLE Horas_laboradas
