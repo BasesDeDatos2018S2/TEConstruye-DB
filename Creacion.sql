@@ -26,7 +26,7 @@ CREATE TABLE Proyecto(
 CREATE TABLE Anotaciones(
 	id				int				Not null		IDENTITY(1,1),
 	id_proyecto		int				Not null,
-	anotacion		varchar(40),	Not null,
+	anotacion		varchar(40)		Not null,
 	fecha			date			Not null,
 	Primary Key (id),
 );
@@ -92,19 +92,19 @@ CREATE TABLE MaterialesxEtapa(
 );
 
 
-CREATE TABLE Detalle(
+/**CREATE TABLE Detalle(
 	id				int				Not null		IDENTITY(1,1),
 	nombre_material	varchar(20)		Not null,
 	cantidad		int				Not null,
 	precio			int				Not null,
 	id_factura		int				Not null		unique,
 	Primary Key(id)
-);
+);**/
 
 
 CREATE TABLE Proveedor(
 	id				int				Not null		IDENTITY(1,1),
-	nombre			varchar(20)		Not null,
+	nombre			varchar(40)		Not null,
 	Primary Key(id)
 
 );
@@ -113,7 +113,7 @@ CREATE TABLE Proveedor(
 CREATE TABLE Factura(
 	id				int				Not null		IDENTITY(1,1),
 	fecha			date			Not null,
-	serial			int				Not null		unique,
+	serial			varchar(30)		Not null		unique,
 	id_etapa		int				Not null,
 	id_proveedor	int				Not null,
 	Primary Key(id)
@@ -149,8 +149,6 @@ ADD Foreign Key (id_proyecto) References Proyecto(id),
 ALTER TABLE Materiales
 Add constraint m_precio_positivo check (precio>=0);
 
-ALTER TABLE Detalle
-Add constraint d_precio_positivo check (precio>=0);
 
 ALTER TABLE MaterialesxEtapa
 ADD Foreign Key (id_etapa) References Etapas(id),
@@ -160,7 +158,6 @@ ADD Foreign Key (id_etapa) References Etapas(id),
 
 ALTER TABLE Factura
 ADD Foreign Key (id_etapa) References Etapas(id),
-	Foreign Key (id_proveedor) References Proveedor(id),
-	constraint serial_positivo check (serial>0);
+	Foreign Key (id_proveedor) References Proveedor(id);
 
 
