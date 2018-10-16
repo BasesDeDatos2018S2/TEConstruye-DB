@@ -1,23 +1,24 @@
 USE TeConstruye
 GO
 
-INSERT INTO Cliente (cedula, nombre, apellido1, apellido2, telefono, correo) VALUES
+INSERT INTO Client (identification, name, lastname1, lastname2, phone, email) VALUES
 ('304920850', 'Mauricio', 'Alvarez', 'Varela', '7202-4566', 'mau18alvarez@example.com'),
 ('123456789', 'Kerrie', 'Banks', 'Adkins', '8821-1543', 'kerrieBA@example.com'),
 ('987654321', 'Xavier', 'Larson', 'Flynn', '32534-4255', 'xaviLF@example.com');
 
-INSERT INTO Proyecto (ubicacion, id_cliente) VALUES
+INSERT INTO Project (ubication, id_client) VALUES
 ('Guanacaste', '304920850'),
 ('Cartago', '304920850'),
 ('Limon', '123456789'),
 ('Puntarenas', '987654321');
 
-INSERT INTO Anotaciones(id_proyecto, anotacion, fecha) VALUES 
+
+INSERT INTO Anotations(id_project, anotation, date) VALUES 
 (1, 'Atraso en mercaderia','2014-02-26'),
 (4, 'Atraso debido a clima','2018-09-19');
 
 
-INSERT INTO Etapas (id_proyecto, nombre, descripcion, fecha_inicio, fecha_fin) VALUES
+INSERT INTO Stage(id_project, name, description, start_date, end_date) VALUES
 (1, 'Trabajo Preliminar', 'Se limpia y aplana la zona de construccion', '2014-01-03', '2014-01-10'),
 (1, 'Cimientos', 'Se realizan los cimientos que daran soporte a la estructura', '2014-01-11','2014-02-01'),
 (1, 'Instalacion Pluvial',	'Se instalan las salidas de agua', '2014-02-02' ,'2014-02-08'),
@@ -92,7 +93,7 @@ INSERT INTO Etapas (id_proyecto, nombre, descripcion, fecha_inicio, fecha_fin) V
 
 
 
-INSERT Empleado (cedula, nombre, apellido1, apellido2, telefono) VALUES 
+INSERT Employee(identification, name, lastname1, lastname2, phone) VALUES 
 ('304920877', 'Marc', 'Kelley', 'Nolan', '653-5167927'),
 ('664556705', 'Melody', 'James', 'Cummings', '379709-4241'),
 ('288785464', 'Dylan', 'Dixon', 'Blevins', '961-832-5642'),
@@ -115,7 +116,7 @@ INSERT Empleado (cedula, nombre, apellido1, apellido2, telefono) VALUES
 ('601598232', 'Rex', 'Ritter', 'Joseph', '698064-7537');
 
 
-INSERT INTO Roles (id_empleado, rol) VALUES
+INSERT INTO Roles (id_employee, role) VALUES
 (1, 'Albañil'),
 (2, 'Albañil'),
 (3, 'Albañil'),
@@ -126,7 +127,7 @@ INSERT INTO Roles (id_empleado, rol) VALUES
 (8,'Ing Civil'),
 (9,'Ing Materiales');
 
-INSERT INTO Horas_laboradas (id_proyecto, id_empleado, fecha, horas) VALUES
+INSERT INTO Worked_hours(id_project, id_employee, date, hours) VALUES
  (1, 1, '2014-01-03', 8),
  (1, 2, '2014-01-03', 8),
  (1, 3, '2014-01-03', 8),
@@ -164,7 +165,7 @@ INSERT INTO Horas_laboradas (id_proyecto, id_empleado, fecha, horas) VALUES
  (4, 9, '2018-05-03', 2);
 
  
- INSERT INTO Materiales (nombre, detalle, precio) VALUES
+ INSERT INTO Materials (name, description, price) VALUES
  ('Backhoe', 'Maquinaria por hora', 14000),
  ('Niveladora', 'Maquinaria por hora', 14000),
  ('Cemento', 'Holcim 50Kg', 6400),
@@ -245,7 +246,7 @@ INSERT INTO Horas_laboradas (id_proyecto, id_empleado, fecha, horas) VALUES
  ('Mueble Fregadero', 'Tanque derecho, pino', 100000);
 
 
- INSERT INTO MaterialesxEtapa (id_etapa, id_material, cantidad, costo) VALUES
+ INSERT INTO MaterialsxStage (id_stage, id_material, quantity, price) VALUES
  (1, 1, 6, 14000),
  (1, 2, 2, 14000),
  (2, 3, 20, 6400),
@@ -326,7 +327,7 @@ INSERT INTO Horas_laboradas (id_proyecto, id_empleado, fecha, horas) VALUES
  (66, 76, 15, 3000);
 
 
- INSERT INTO Proveedor (nombre) VALUES
+ INSERT INTO Provider (name) VALUES
  ('EPA'),
  ('Colono Construcción'),
  ('El Lagar'),
@@ -355,11 +356,11 @@ INSERT INTO Horas_laboradas (id_proyecto, id_empleado, fecha, horas) VALUES
  ('Ferreutil');
 
 
-INSERT INTO Factura (fecha, serial, id_etapa, id_proveedor) VALUES
- ('2014-02-02', 'AAA-1234', 3, 1),
- ('2017-06-21', 'BBB-12E65', 24, 2),
- ('2018-02-09', 'CCC-12RD34', 38, 3),
- ('2018-06-01', 'DDD-1R2D34', 55, 4);
+INSERT INTO Bill(date, serial, price, id_stage, id_provider) VALUES
+ ('2014-02-02', 'AAA-1234', 18000, 3, 1),
+ ('2017-06-21', 'BBB-12E65', 25000, 24, 2),
+ ('2018-02-09', 'CCC-12RD34', 450000, 38, 3),
+ ('2018-06-01', 'DDD-1R2D34', 8750, 55, 4);
 
 
 
@@ -369,3 +370,30 @@ INSERT INTO Factura (fecha, serial, id_etapa, id_proveedor) VALUES
 
 
  
+/**PRUEBA PRUEBA PRUEBA **/
+
+INSERT INTO Project(ubication, id_client) VALUES
+('Cartago', '123456789');
+
+INSERT INTO Stage(id_project, name, description, start_date, end_date) VALUES
+(5, 'Trabajo Preliminar', 'Se limpia y aplana la zona de construccion', '2014-01-03', '2014-01-10'),
+(5, 'Cimientos', 'Se realizan los cimientos que daran soporte a la estructura', '2014-01-11','2014-02-01');
+
+ INSERT INTO MaterialsxStage(id_stage, id_material, quantity, price) VALUES
+ (67, 1, 6, 14000),
+ (68, 2, 2, 14000);
+
+Select * 
+from Project
+
+Select * 
+from Client
+
+
+Select * 
+from Stage
+Where id_project = 5
+
+Select * 
+from Materials
+Where Materials.id = 1 OR Materials.id = 2
