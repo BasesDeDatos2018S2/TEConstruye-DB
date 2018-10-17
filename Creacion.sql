@@ -17,6 +17,7 @@ CREATE TABLE Client(
 
 CREATE TABLE Project(
 	id				int				Not null		IDENTITY(1,1),
+	name			varchar(30)		Not null		default '',
 	ubication		varchar(60)		Not null,		
 	id_client		varchar(9)		Not null,
 	Primary Key (id),
@@ -65,11 +66,13 @@ CREATE TABLE Roles(
 
 
 CREATE TABLE Worked_hours(
+	id				int				Not null		IDENTITY(1,1),
 	id_project		int				Not null,
 	id_employee		int				Not null,
 	date			date			Not null		default '',
 	hours			int				Not null		default 0,
-	Primary Key (id_project, id_employee),
+	hour_cost		int				Not null		default 0,
+	Primary Key (id),
 );
 
 
@@ -145,7 +148,9 @@ ADD Foreign Key (id_employee) References Employee(id);
 ALTER TABLE Worked_hours
 ADD Foreign Key (id_project) References Project(id),
 	Foreign Key (id_employee) References Employee(id),
-	constraint positive_hours check (hours>=0);
+	constraint positive_hours check (hours>=0),
+	constraint positive_cost check (hour_cost>=0),
+	constraint unique_values UNIQUE NONCLUSTERED (id_project, id_employee, date);
 
 ALTER TABLE Materials
 Add constraint positive_price check (price>=0);

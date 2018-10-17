@@ -1,16 +1,27 @@
 USE TeConstruye
 GO
 
+/**CREATE TRIGGER Validate_Worked_Hours on Worked_hours 
+AFTER Insert
+AS
+	If exists (select W.id_project, W.id_project, W.date from Worked_hours as W
+		Inner Join inserted as I on I.id_project = W.id_project and I.id_employee = W.id_employee and I.date = W.date)
+	Begin
+		Rollback
+		RAISERROR('Duplicate Data', 16, 1)
+	End
+	GO**/
+
 INSERT INTO Client (identification, name, lastname1, lastname2, phone, email) VALUES
 ('304920850', 'Mauricio', 'Alvarez', 'Varela', '7202-4566', 'mau18alvarez@example.com'),
 ('123456789', 'Kerrie', 'Banks', 'Adkins', '8821-1543', 'kerrieBA@example.com'),
 ('987654321', 'Xavier', 'Larson', 'Flynn', '32534-4255', 'xaviLF@example.com');
 
-INSERT INTO Project (ubication, id_client) VALUES
-('Guanacaste', '304920850'),
-('Cartago', '304920850'),
-('Limon', '123456789'),
-('Puntarenas', '987654321');
+INSERT INTO Project (name, ubication, id_client) VALUES
+('Casa de habitacion', 'Guanacaste', '304920850'),
+('Condominios', 'Cartago', '304920850'),
+('Apartamentos', 'Limon', '123456789'),
+('Hotel', 'Puntarenas', '987654321');
 
 
 INSERT INTO Anotations(id_project, anotation, date) VALUES 
@@ -127,42 +138,43 @@ INSERT INTO Roles (id_employee, role) VALUES
 (8,'Ing Civil'),
 (9,'Ing Materiales');
 
-INSERT INTO Worked_hours(id_project, id_employee, date, hours) VALUES
- (1, 1, '2014-01-03', 8),
- (1, 2, '2014-01-03', 8),
- (1, 3, '2014-01-03', 8),
- (1, 4, '2014-01-03', 8),
- (1, 6, '2014-01-03', 2),
- (1, 7, '2014-01-03', 8),
- (1, 8, '2014-01-03', 8),
- (1, 9, '2014-01-03', 8),
+/**INSERT INTO Worked_hours(id_project, id_employee, date, hours, hour_cost) VALUES
+ (1, 1, '2014-01-03', 8, 1600),
+ (1, 2, '2014-01-03', 8, 1600),
+ (1, 3, '2014-01-03', 8, 1600),
+ (1, 4, '2014-01-03', 8, 1600),
+ (1, 6, '2014-01-03', 2, 1600),
+ (1, 7, '2014-01-03', 8, 2500),
+ (1, 8, '2014-01-03', 8, 2000),
+ (1, 9, '2014-01-03', 8, 1950),
 
- (2, 1, '2017-05-11', 6),
- (2, 2, '2017-05-11', 6),
- (2, 3, '2017-05-11', 6),
- (2, 4, '2017-05-11', 6),
- (2, 6, '2017-05-11', 3),
- (2, 7, '2017-05-11', 6),
- (2, 8, '2017-05-11', 8),
- (2, 9, '2017-05-11', 8),
+ (2, 1, '2017-05-11', 6, 1600),
+ (2, 2, '2017-05-11', 6, 1600),
+ (2, 3, '2017-05-11', 6, 1600),
+ (2, 4, '2017-05-11', 6, 1600),
+ (2, 6, '2017-05-11', 3, 3000),
+ (2, 7, '2017-05-11', 6, 3000),
+ (2, 8, '2017-05-11', 8, 2500),
+ (2, 9, '2017-05-11', 8, 1950),
 
- (3, 1, '2018-01-03', 7),
- (3, 2, '2018-01-03', 6),
- (3, 3, '2018-01-03', 5),
- (3, 4, '2018-01-03', 4),
- (3, 6, '2018-01-03', 1),
- (3, 7, '2018-01-03', 1),
- (3, 8, '2018-01-03', 1),
- (3, 9, '2018-01-03', 1),
+ (3, 1, '2018-01-03', 7, 1000),
+ (3, 2, '2018-01-03', 6, 1000),
+ (3, 3, '2018-01-03', 5, 1000),
+ (3, 4, '2018-01-03', 4, 1000),
+ (3, 6, '2018-01-03', 1, 1000),
+ (3, 7, '2018-01-03', 1, 1000),
+ (3, 8, '2018-01-03', 1, 1000),
+ (3, 9, '2018-01-03', 1, 1000),
 
- (4, 1, '2018-05-03', 8),
- (4, 2, '2018-05-03', 3),
- (4, 3, '2018-05-03', 8),
- (4, 4, '2018-05-03', 3),
- (4, 6, '2018-05-03', 2),
- (4, 7, '2018-05-03', 2),
- (4, 8, '2018-05-03', 2),
- (4, 9, '2018-05-03', 2);
+ (4, 1, '2018-05-03', 8, 500),
+ (4, 2, '2018-05-03', 3, 500),
+ (4, 3, '2018-05-03', 8, 500),
+ (4, 4, '2018-05-03', 3, 500),
+ (4, 6, '2018-05-03', 2, 1000),
+ (4, 7, '2018-05-03', 2, 1000),
+ (4, 8, '2018-05-03', 2, 1000),
+ (4, 9, '2018-05-03', 2, 1000);**/
+
 
  
  INSERT INTO Materials (name, description, price) VALUES
@@ -356,19 +368,11 @@ INSERT INTO Worked_hours(id_project, id_employee, date, hours) VALUES
  ('Ferreutil');
 
 
-INSERT INTO Bill(date, serial, price, id_stage, id_provider) VALUES
+/**INSERT INTO Bill(date, serial, price, id_stage, id_provider) VALUES
  ('2014-02-02', 'AAA-1234', 18000, 3, 1),
  ('2017-06-21', 'BBB-12E65', 25000, 24, 2),
  ('2018-02-09', 'CCC-12RD34', 450000, 38, 3),
- ('2018-06-01', 'DDD-1R2D34', 8750, 55, 4);
-
-
-
-
-
-
-
-
+ ('2018-06-01', 'DDD-1R2D34', 8750, 55, 4);**/
  
 /**PRUEBA PRUEBA PRUEBA **/
 
@@ -383,6 +387,38 @@ INSERT INTO Stage(id_project, name, description, start_date, end_date) VALUES
  (67, 1, 6, 14000),
  (68, 2, 2, 14000);
 
+ INSERT INTO Worked_hours(id_project, id_employee, date, hours, hour_cost) VALUES
+ (1, 1, '2014-01-03', 8, 600),
+ (1, 1, '2014-01-04', 2, 1500),
+ (1, 3, '2014-01-03', 3, 700),
+ (1, 4, '2014-01-05', 4, 600),
+ (2, 1, '2014-01-06', 5, 500),
+ (2, 2, '2014-01-05', 8, 1600),
+ (2, 5, '2014-01-07', 9, 600),
+ (2, 6, '2014-01-08', 12, 300),
+ (3, 1, '2014-01-09', 12, 100),
+ (3, 9, '2014-01-03', 88, 5000),
+ (3, 12, '2014-01-06', 1, 400),
+ (3, 5, '2014-01-05', 2, 1000),
+ (4, 1, '2014-01-09', 3, 1100),
+ (4, 1, '2014-01-10', 4, 110),
+ (4, 5, '2014-01-10', 8, 60),
+ (4, 12, '2014-01-03', 8, 500);
+
+INSERT INTO Bill(date, serial, price, id_stage, id_provider) VALUES
+ ('2014-02-02', 'AAE-1234', 128000, 3, 1),
+ ('2014-02-02', 'AAB-1234', 180800, 2, 5),
+ ('2014-02-02', 'AAN-1234', 180070, 3, 9),
+
+ ('2014-02-07', 'B2BB-12E65', 2000, 24, 2),
+ ('2014-02-06', 'BB4B-12E65', 5000, 25, 3),
+ ('2014-02-05', 'BBB-1265', 25000,	25, 4),
+
+ ('2014-02-09', 'CCC-12RD34', 450000, 38, 8),
+ ('2014-02-10', 'DDD-1R2D34', 8750, 41, 7);
+
+
+/**
 Select * 
 from Project
 
@@ -397,3 +433,17 @@ Where id_project = 5
 Select * 
 from Materials
 Where Materials.id = 1 OR Materials.id = 2
+
+Select * 
+from Worked_hours
+
+Select * 
+from Project
+
+Select * 
+from Employee
+
+Select * 
+from Bill
+
+**/
