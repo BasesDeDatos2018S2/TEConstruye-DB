@@ -7,7 +7,7 @@ GO
 CREATE PROCEDURE usp_budget
 	@idProject INT
 AS
-	Select S.name as Etapa, M.name as Material, M.description as Detalle, MS.quantity as Cantidad, MS.price as Costo, (MS.quantity * MS.price) as Total, C.name as Nombre, C.lastname1 as Apellido
+	Select S.name as Etapa, M.name as Material, M.description as Detalle, MS.quantity as Cantidad, MS.price as Costo, (MS.quantity * MS.price) as Total, C.name as Nombre, C.lastname1 as Apellido, P.name as ProyectoNombre
 	From Stage as S
 	Inner Join MaterialsxStage as MS ON S.id = MS.id_stage 
 	Inner Join Materials as M on M.id = MS.id_material
@@ -21,7 +21,7 @@ GO
 
 CREATE PROCEDURE usp_project_client
 AS
-	Select C.name as Nombre, C.lastname1 as Apellido, P.id as ProyectoID
+	Select C.name as Nombre, C.lastname1 as Apellido, P.id as ProyectoID, P.name as NombreProyecto
 	From Client as C
 	Inner Join Project as P on P.id_client = C.identification
 GO
@@ -62,7 +62,7 @@ GO
 CREATE PROCEDURE usp_status
 	@id_proj	int
 AS
-	Select	S.name as Etapa, MS.quantity, MS.price as Presupuesto, (MS.quantity * MS.price) as TotalPresupuesto, B.price as Real, (MS.quantity * B.price) as TotalReal, B.serial
+	Select	S.name as Etapa, MS.quantity as Cantidad, MS.price as Presupuesto, (MS.quantity * MS.price) as TotalPresupuesto, B.price as Real, (MS.quantity * B.price) as TotalReal, B.serial
 	From Bill as B
 	Inner Join MaterialsxStage as MS on MS.id_stage = B.id_stage and MS.id_material = B.id_material
 
@@ -83,11 +83,11 @@ EXECUTE usp_budget @idProject = 2
 GO
 EXECUTE usp_project_client
 GO
-EXECUTE usp_employee_payment @first_date = '2014-01-03', @second_date = '2014-01-10'
+EXECUTE usp_employee_payment @first_date = '01/03/2014', @second_date = '01/10/2014'
 GO
-EXECUTE usp_expenses @first_date = '2014-02-02', @second_date = '2014-02-10'
+EXECUTE usp_expenses @first_date = '02/02/2014', @second_date = '02/10/2014'
 GO
-EXECUTE usp_status @id_proj = 1
+EXECUTE usp_status @id_proj = 4
 GO
 
 --DROP DE PRUEBA
