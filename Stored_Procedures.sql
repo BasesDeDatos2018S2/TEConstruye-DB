@@ -7,7 +7,7 @@ GO
 CREATE PROCEDURE usp_budget
 	@idProject INT
 AS
-	Select S.name as Etapa, M.name as Material, M.description as Detalle, MS.quantity as Cantidad, MS.price as Costo, (MS.quantity * MS.price) as Total, C.name as Nombre, C.lastname1 as Apellido, P.name as ProyectoNombre
+	Select S.name as Etapa, M.name as Material, M.description as Detalle, MS.quantity as Cantidad, MS.price as Costo, (MS.quantity * MS.price) as Total, (C.name + ' ' + C.lastname1) as Nombre, P.name as ProyectoNombre
 	From Stage as S
 	Inner Join MaterialsxStage as MS ON S.id = MS.id_stage 
 	Inner Join Materials as M on M.id = MS.id_material
@@ -33,26 +33,28 @@ CREATE PROCEDURE usp_employee_payment
 	@second_date	date
 
 AS
-	Select P.name, E.name as Nombre, E.lastname1 as Apellido, WH.hours as Horas, WH.hour_cost as Costo, (WH.hours * WH.hour_cost) as Total
+	Select P.name as Proyecto, (E.name + ' ' + E.lastname1) as Nombre, WH.hours as Horas, WH.hour_cost as Costo, (WH.hours * WH.hour_cost) as Total
 	From Worked_hours as WH
-	Inner Join Employee as E on E.id = WH.id_project
+	Inner Join Employee as E on E.id = WH.id_employee
 	Inner Join Project as P on  P.id = WH.id_project
 	Where WH.date >= @first_date AND Wh.date <= @second_date
 GO
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
---Stored Procedure para obtener el informe de Gastos Segun Fecha
+--Stored Procedure para obtener el informe de Gastos Segun Fecha y Proyecto
 CREATE PROCEDURE usp_expenses
 	@first_date		date,
-	@second_date	date
+	@second_date	date,
+	@id_proj		int
 
 AS
-	Select B.serial, Prv.name, B.date, S.name, B.price, Prj.name
+	Select B.serial as Factura, Prv.name as Proveedor, B.date as Fecha, S.name as Etapa, B.price as Precio, Prj.name as Proyecto
 	From Provider as Prv
 	Inner Join Bill as B on B.id_provider = Prv.id
 	Inner Join Stage as S on S.id = B.id_stage
 	Inner Join Project as Prj on Prj.id = S.id_project
+	Where Prj.id = @id_proj
 GO
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,11 +64,11 @@ GO
 CREATE PROCEDURE usp_status
 	@id_proj	int
 AS
-	Select	S.name as Etapa, MS.quantity as Cantidad, MS.price as Presupuesto, (MS.quantity * MS.price) as TotalPresupuesto, B.price as Real, (MS.quantity * B.price) as TotalReal, B.serial
+	Select	S.name as Etapa, (MS.quantity * MS.price) as TotalPresupuesto, (MS.quantity * B.price) as TotalReal, ((MS.quantity * MS.price) - (MS.quantity * B.price)) as Diferencia, P.name as Proyecto
 	From Bill as B
 	Inner Join MaterialsxStage as MS on MS.id_stage = B.id_stage and MS.id_material = B.id_material
-
 	Inner Join Stage as S on S.id = MS.id_stage
+	Inner Join Project as P on P.id = S.id_project 
 	Where S.id_project = @id_proj
 	
 GO
@@ -85,7 +87,7 @@ EXECUTE usp_project_client
 GO
 EXECUTE usp_employee_payment @first_date = '01/03/2014', @second_date = '01/10/2014'
 GO
-EXECUTE usp_expenses @first_date = '02/02/2014', @second_date = '02/10/2014'
+EXECUTE usp_expenses @first_date = '02/02/2014', @second_date = '02/10/2014', @id_proj = 1
 GO
 EXECUTE usp_status @id_proj = 4
 GO
@@ -97,5 +99,7 @@ DROP PROCEDURE usp_project_client
 Go
 DROP PROCEDURE usp_employee_payment
 GO
+DROP PROCEDURE usp_expenses
+Go
 DROP PROCEDURE usp_status
 Go
