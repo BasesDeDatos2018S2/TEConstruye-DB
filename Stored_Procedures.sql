@@ -1,8 +1,9 @@
 USE TeConstruye
 GO
 
---Stored Procedure para generar PRESUPUESTO segun ID del Proyecto
+----------------------------------------------------------------------------------------------------------------------------------------------
 
+--Stored Procedure para generar PRESUPUESTO segun ID del Proyecto
 CREATE PROCEDURE usp_budget
 	@idProject INT
 AS
@@ -14,6 +15,7 @@ AS
 	Inner Join Client as C on C.identification = P.id_client
 	Where S.id_project = @idProject
 GO
+----------------------------------------------------------------------------------------------------------------------------------------------
 
 --Stored Procedure para obtener los proyectos de los clientes
 
@@ -23,6 +25,7 @@ AS
 	From Client as C
 	Inner Join Project as P on P.id_client = C.identification
 GO
+----------------------------------------------------------------------------------------------------------------------------------------------
 
 --Stored Procedure para obtener la PLANILLA Segun Fecha
 CREATE PROCEDURE usp_employee_payment
@@ -37,14 +40,38 @@ AS
 	Where WH.date >= @first_date AND Wh.date <= @second_date
 GO
 
-/**--Stored Procedure para obtener el informe de Gastos Segun Fecha
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+--Stored Procedure para obtener el informe de Gastos Segun Fecha
 CREATE PROCEDURE usp_expenses
 	@first_date		date,
 	@second_date	date
 
 AS
-	Select**/
+	Select B.serial, Prv.name, B.date, S.name, B.price, Prj.name
+	From Provider as Prv
+	Inner Join Bill as B on B.id_provider = Prv.id
+	Inner Join Stage as S on S.id = B.id_stage
+	Inner Join Project as Prj on Prj.id = S.id_project
+GO
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+--Stored Procedure para obtener el Estado del Proyecto
+
+CREATE PROCEDURE usp_status
+	@id_proj	int
+AS
+	Select	S.name as Etapa, MS.quantity, MS.price as Presupuesto, (MS.quantity * MS.price) as TotalPresupuesto, B.price as Real, (MS.quantity * B.price) as TotalReal, B.serial
+	From Bill as B
+	Inner Join MaterialsxStage as MS on MS.id_stage = B.id_stage and MS.id_material = B.id_material
+
+	Inner Join Stage as S on S.id = MS.id_stage
+	Where S.id_project = @id_proj
 	
+GO
+
+
 
 
 
@@ -52,13 +79,16 @@ AS
 
 
 --EXECUTE DE PRUEBA
-EXECUTE usp_budget @idProject = 5 
+EXECUTE usp_budget @idProject = 2 
 GO
 EXECUTE usp_project_client
 GO
 EXECUTE usp_employee_payment @first_date = '2014-01-03', @second_date = '2014-01-10'
 GO
-
+EXECUTE usp_expenses @first_date = '2014-02-02', @second_date = '2014-02-10'
+GO
+EXECUTE usp_status @id_proj = 1
+GO
 
 --DROP DE PRUEBA
 DROP PROCEDURE usp_budget
@@ -67,3 +97,5 @@ DROP PROCEDURE usp_project_client
 Go
 DROP PROCEDURE usp_employee_payment
 GO
+DROP PROCEDURE usp_status
+Go

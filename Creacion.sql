@@ -119,6 +119,7 @@ CREATE TABLE Bill(
 	serial			varchar(30)		Not null		unique,
 	price			int				Not null,
 	id_stage		int				Not null,
+	id_material		int				Not null,
 	id_provider		int				Not null,
 	Primary Key(id)
 );
@@ -165,6 +166,7 @@ ADD Foreign Key (id_stage) References Stage(id),
 ALTER TABLE Bill
 ADD Foreign Key (id_stage) References Stage(id),
 	Foreign Key (id_provider) References Provider(id),
+	Foreign Key (id_material) References Materials(id),
 	constraint bill_positive check (price>=0);
 
 
