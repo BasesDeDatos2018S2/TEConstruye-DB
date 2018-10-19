@@ -93,39 +93,57 @@ INSERT INTO Stage(id_project, name, description, start_date, end_date) VALUES
 
 
 
-INSERT Employee(identification, name, lastname1, lastname2, phone) VALUES 
-('304920877', 'Marc', 'Kelley', 'Nolan', '653-5167927'),
-('664556705', 'Melody', 'James', 'Cummings', '379709-4241'),
-('288785464', 'Dylan', 'Dixon', 'Blevins', '961-832-5642'),
-('385982474', 'Jeannie', 'Faulkner', 'Kim', '167583-6508'),
-('185455468', 'Maureen', 'Velasquez', 'Kaiser', '3640729480'),
-('455065758', 'Jim', 'Peck', 'Stephenson', '157745-1285'),
-('536135785', 'Kathryn', 'Beasley', 'Harrison', '2249174400'),
-('278801474', 'Erica', 'Stevens', 'Shields', '093-183-8121'),
-('184828587', 'Bobbie', 'Francis', 'Fuentes', '896-6990883'),
-('610726107', 'Craig', 'Payne', 'Greer', '344-196-4906'),
-('122356107', 'Shawn', 'Gaines', 'Mc Cormick', '7954780060'),
-('335406107', 'Ivan', 'Boyd', 'Terrell', '200-4688348'),
-('681176107', 'Meghan', 'Mckenzie', 'Morrison', '692-0295590'),
-('613766137', 'Angie', 'Sims', 'Howe', '0354961097'),
-('204676136', 'Kelley', 'Stevenson', 'Gutierrez', '530-1749038'),
-('560991376', 'Ernesto', 'Hines', 'Aguyen', '978-5757362'),
-('053845985', 'Randall', 'Mueller', 'Sanford', '032154-2986'),
-('656495982', 'Dion', 'Lloyd', 'Wallace', '367-3283827'),
-('959828177', 'Marvin', 'Cantrell', 'Terrell', '711-683-3238'),
-('601598232', 'Rex', 'Ritter', 'Joseph', '698064-7537');
+INSERT Employee(identification, name, lastname1, lastname2, phone, hour_cost) VALUES 
+('304920877', 'Marc', 'Kelley', 'Nolan', '653-5167927', 1000),
+('664556705', 'Melody', 'James', 'Cummings', '379709-4241', 1100),
+('288785464', 'Dylan', 'Dixon', 'Blevins', '961-832-5642', 1050),
+('385982474', 'Jeannie', 'Faulkner', 'Kim', '167583-6508', 1300),
+('185455468', 'Maureen', 'Velasquez', 'Kaiser', '3640729480', 1500),
+('455065758', 'Jim', 'Peck', 'Stephenson', '157745-1285', 2000),
+('536135785', 'Kathryn', 'Beasley', 'Harrison', '2249174400', 2350),
+('278801474', 'Erica', 'Stevens', 'Shields', '093-183-8121', 1800),
+('184828587', 'Bobbie', 'Francis', 'Fuentes', '896-6990883', 800),
+('610726107', 'Craig', 'Payne', 'Greer', '344-196-4906', 800),
+('122356107', 'Shawn', 'Gaines', 'Mc Cormick', '7954780060', 800),
+('335406107', 'Ivan', 'Boyd', 'Terrell', '200-4688348', 700),
+('681176107', 'Meghan', 'Mckenzie', 'Morrison', '692-0295590', 750),
+('613766137', 'Angie', 'Sims', 'Howe', '0354961097', 900),
+('204676136', 'Kelley', 'Stevenson', 'Gutierrez', '530-1749038', 950),
+('560991376', 'Ernesto', 'Hines', 'Aguyen', '978-5757362', 1000),
+('053845985', 'Randall', 'Mueller', 'Sanford', '032154-2986', 1050),
+('656495982', 'Dion', 'Lloyd', 'Wallace', '367-3283827', 950),
+('959828177', 'Marvin', 'Cantrell', 'Terrell', '711-683-3238', 950),
+('601598232', 'Rex', 'Ritter', 'Joseph', '698064-7537', 600);
+
+INSERT INTO Role_specification (specification) VALUES
+ ('Albañil'),
+ ('Ingeniero Electrico'),
+ ('Aquitecto'),
+ ('Ingeniero Civil'),
+ ('Ingeniero Materiales');
 
 
-INSERT INTO Roles (id_employee, role) VALUES
-(1, 'Albañil'),
-(2, 'Albañil'),
-(3, 'Albañil'),
-(4, 'Albañil'),
-(5, 'Albañil'),
-(6,'Ing Electrico'),
-(7,'Aquitecto'),
-(8,'Ing Civil'),
-(9,'Ing Materiales');
+INSERT INTO Roles (id_role, id_employee) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(2, 6),
+(3, 7),
+(4, 8),
+(5, 9),
+(1, 10),
+(1, 11),
+(1, 12),
+(1, 13),
+(1, 14),
+(1, 15),
+(2, 16),
+(3, 17),
+(4, 18),
+(5, 19),
+(5, 20);
 
 /**INSERT INTO Worked_hours(id_project, id_employee, date, hours, hour_cost) VALUES
  (1, 1, '01/03/2014', 8, 1600),
@@ -450,21 +468,21 @@ INSERT INTO Stage(id_project, name, description, start_date, end_date) VALUES
 (5, 'Cimientos', 'Se realizan los cimientos que daran soporte a la estructura', '2014-01-11','2014-02-01');
 
 
- INSERT INTO Worked_hours(id_project, id_employee, date, hours, hour_cost) VALUES
- (1, 1, '01/03/2014', 8, 600),
- (1, 1, '01/04/2014', 2, 1500),
- (1, 3, '01/03/2014', 3, 700),
- (1, 4, '01/05/2014', 4, 600),
- (2, 1, '01/06/2014', 5, 500),
- (2, 2, '01/05/2014', 8, 1600),
- (2, 5, '01/07/2014', 9, 600),
- (2, 6, '01/08/2014', 12, 300),
- (3, 1, '01/09/2014', 12, 100),
- (3, 9, '01/03/2014', 88, 5000),
- (3, 12, '01/06/2014', 1, 400),
- (3, 5, '01/05/2014', 2, 1000),
- (4, 1, '01/09/2014', 3, 1100),
- (4, 1, '01/10/2014', 4, 110),
- (4, 5, '01/10/2014', 8, 60),
- (4, 12, '01/03/2014', 8, 500);
+ INSERT INTO Worked_hours(id_project, id_employee, date, hours) VALUES
+ (1, 1, '01/03/2014', 8),
+ (1, 1, '01/04/2014', 2),
+ (1, 3, '01/03/2014', 3),
+ (1, 4, '01/05/2014', 4),
+ (2, 1, '01/06/2014', 5),
+ (2, 2, '01/05/2014', 8),
+ (2, 5, '01/07/2014', 9),
+ (2, 6, '01/08/2014', 12),
+ (3, 1, '01/09/2014', 12),
+ (3, 9, '01/03/2014', 88),
+ (3, 12, '01/06/2014', 1),
+ (3, 5, '01/05/2014', 2),
+ (4, 1, '01/09/2014', 3),
+ (4, 1, '01/10/2014', 4),
+ (4, 5, '01/10/2014', 8),
+ (4, 12, '01/03/2014', 8);
 

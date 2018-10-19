@@ -1,9 +1,10 @@
 USE TeConstruye
 GO
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ------Trigger para no poder disminuir el precio de las horas a los trabajadores
-CREATE TRIGGER usp_validate_hours_price
- ON Worked_hours
+CREATE TRIGGER ut_validate_hours_price
+ ON Employee
  For Update
  AS
 
@@ -19,13 +20,53 @@ CREATE TRIGGER usp_validate_hours_price
 	ROLLBACK TRANSACTION;
 	END
  END
+ GO
 
-UPDATE Worked_hours
-SET hour_cost =  100
-WHERE id_employee = 1
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+------Trigger para no poder editar el numero de cedula de los empleados
+CREATE TRIGGER ut_employee_identification_not_editable
+ ON Employee
+ For Update
+ AS
 
-----------------------------------------------------------------------------------------------------------------------------------------------
+ Begin
+	If Update (identification)
+	Declare @inserted varchar(9), @deleted varchar(9)
+	Select @inserted = identification from inserted
+	Select @deleted  = identification from deleted
+
+	If (@inserted < > @deleted)
+	Begin
+	RAISERROR (15600, -1, -1, 'No es posible modificar la cedula del empleado')
+	ROLLBACK TRANSACTION;
+	END
+ END
+ GO
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------Trigger para no poder editar el numero de cedula de los empleados
+CREATE TRIGGER ut_client_identification_not_editable
+ ON Client
+ For Update
+ AS
+
+ Begin
+	If Update (identification)
+	Declare @inserted varchar(9), @deleted varchar(9)
+	Select @inserted = identification from inserted
+	Select @deleted  = identification from deleted
+
+	If (@inserted < > @deleted)
+	Begin
+	RAISERROR (15600, -1, -1, 'No es posible modificar la cedula del cliente')
+	ROLLBACK TRANSACTION;
+	END
+ END
+ GO
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 --Stored Procedure para generar PRESUPUESTO segun ID del Proyecto
 CREATE PROCEDURE usp_budget
@@ -39,7 +80,7 @@ AS
 	Inner Join Client as C on C.identification = P.id_client
 	Where S.id_project = @idProject
 GO
-----------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 --Stored Procedure para obtener los proyectos de los clientes
 
@@ -49,7 +90,7 @@ AS
 	From Client as C
 	Inner Join Project as P on P.id_client = C.identification
 GO
-----------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 --Stored Procedure para obtener la PLANILLA Segun Fecha
 CREATE PROCEDURE usp_employee_payment
@@ -57,14 +98,14 @@ CREATE PROCEDURE usp_employee_payment
 	@second_date	date
 
 AS
-	Select P.name as Proyecto, (E.name + ' ' + E.lastname1) as Nombre, WH.hours as Horas, WH.hour_cost as Costo, (WH.hours * WH.hour_cost) as Total
+	Select P.name as Proyecto, (E.name + ' ' + E.lastname1) as Nombre, WH.hours as Horas, E.hour_cost as Costo, (WH.hours * E.hour_cost) as Total
 	From Worked_hours as WH
 	Inner Join Employee as E on E.id = WH.id_employee
 	Inner Join Project as P on  P.id = WH.id_project
 	Where WH.date >= @first_date AND Wh.date <= @second_date
 GO
 
-----------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 --Stored Procedure para obtener el informe de Gastos Segun Fecha y Proyecto
 CREATE PROCEDURE usp_expenses
@@ -81,8 +122,7 @@ AS
 	Where Prj.id = @id_proj
 GO
 
-----------------------------------------------------------------------------------------------------------------------------------------------
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Stored Procedure para obtener el Estado del Proyecto
 
 CREATE PROCEDURE usp_status
@@ -97,12 +137,12 @@ AS
 	
 GO
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
-
-
+/**
 
 --EXECUTE DE PRUEBA
 EXECUTE usp_budget @idProject = 2 
@@ -127,3 +167,11 @@ DROP PROCEDURE usp_expenses
 Go
 DROP PROCEDURE usp_status
 Go
+DROP TRIGGER ut_validate_hours_price
+GO
+DROP TRIGGER ut_employee_identification_not_editable
+GO
+DROP TRIGGER ut_client_identification_not_editable
+GO
+
+**/
