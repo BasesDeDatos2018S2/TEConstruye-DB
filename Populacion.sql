@@ -1,17 +1,6 @@
 USE TeConstruye
 GO
 
-/**CREATE TRIGGER Validate_Worked_Hours on Worked_hours 
-AFTER Insert
-AS
-	If exists (select W.id_project, W.id_project, W.date from Worked_hours as W
-		Inner Join inserted as I on I.id_project = W.id_project and I.id_employee = W.id_employee and I.date = W.date)
-	Begin
-		Rollback
-		RAISERROR('Duplicate Data', 16, 1)
-	End
-	GO**/
-
 INSERT INTO Client (identification, name, lastname1, lastname2, phone, email) VALUES
 ('304920850', 'Mauricio', 'Alvarez', 'Varela', '7202-4566', 'mau18alvarez@example.com'),
 ('123456789', 'Kerrie', 'Banks', 'Adkins', '8821-1543', 'kerrieBA@example.com'),

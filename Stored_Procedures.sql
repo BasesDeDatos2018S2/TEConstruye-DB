@@ -1,6 +1,30 @@
 USE TeConstruye
 GO
 
+------Trigger para no poder disminuir el precio de las horas a los trabajadores
+CREATE TRIGGER usp_validate_hours_price
+ ON Worked_hours
+ For Update
+ AS
+
+ Begin
+	If Update (hour_cost)
+	Declare @inserted int, @deleted int
+	Select @inserted = hour_cost from inserted
+	Select @deleted  = hour_cost from deleted
+
+	If (@inserted < @deleted)
+	Begin
+	RAISERROR (15600, -1, -1, 'Dado políticas de la empresa, no se puede disminuir el sueldo')
+	ROLLBACK TRANSACTION;
+	END
+ END
+
+UPDATE Worked_hours
+SET hour_cost =  100
+WHERE id_employee = 1
+
+
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 --Stored Procedure para generar PRESUPUESTO segun ID del Proyecto
