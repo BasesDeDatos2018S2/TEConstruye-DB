@@ -6,11 +6,11 @@ INSERT INTO Client (identification, name, lastname1, lastname2, phone, email) VA
 ('123456789', 'Kerrie', 'Banks', 'Adkins', '8821-1543', 'kerrieBA@example.com'),
 ('987654321', 'Xavier', 'Larson', 'Flynn', '32534-4255', 'xaviLF@example.com');
 
-INSERT INTO Project (name, ubication, id_client) VALUES
-('Casa de habitacion', 'Guanacaste', '304920850'),
-('Condominios', 'Cartago', '304920850'),
-('Apartamentos', 'Limon', '123456789'),
-('Hotel', 'Puntarenas', '987654321');
+INSERT INTO Project (name, ubication, id_client, manager) VALUES
+('Casa de habitacion', 'Guanacaste', '304920850', 6),
+('Condominios', 'Cartago', '304920850', 7),
+('Apartamentos', 'Limon', '123456789', 7),
+('Hotel', 'Puntarenas', '987654321', 6);
 
 
 INSERT INTO Anotations(id_project, anotation, date) VALUES 
@@ -457,15 +457,7 @@ INSERT INTO Bill(date, serial, price, id_stage, id_material, id_provider) VALUES
 ('05/15/2018', 'AXYK/337', 3000, 66, 76, 8);
 
 
--------------------------------------------------------------DATOS DE PRUEBA-------------------------------------
-
-
-INSERT INTO Project(ubication, id_client) VALUES
-('Cartago', '123456789');
-
-INSERT INTO Stage(id_project, name, description, start_date, end_date) VALUES
-(5, 'Trabajo Preliminar', 'Se limpia y aplana la zona de construccion', '2014-01-03', '2014-01-10'),
-(5, 'Cimientos', 'Se realizan los cimientos que daran soporte a la estructura', '2014-01-11','2014-02-01');
+-------------------------------------------------------------DATOS DE PRUEBA-----------------------------------
 
 
  INSERT INTO Worked_hours(id_project, id_employee, date, hours) VALUES

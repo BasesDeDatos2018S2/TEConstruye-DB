@@ -20,6 +20,7 @@ CREATE TABLE Project(
 	name			varchar(30)		Not null		default '',
 	ubication		varchar(60)		Not null,		
 	id_client		varchar(9)		Not null,
+	manager			int				Not null,	
 	Primary Key (id),
 );
 
