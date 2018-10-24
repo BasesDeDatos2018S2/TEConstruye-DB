@@ -1,6 +1,6 @@
 USE TeConstruye
 GO
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ------Trigger para no poder disminuir el precio de las horas a los trabajadores
 CREATE TRIGGER ut_validate_hours_price

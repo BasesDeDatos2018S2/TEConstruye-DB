@@ -6,6 +6,36 @@ INSERT INTO Client (identification, name, lastname1, lastname2, phone, email) VA
 ('123456789', 'Kerrie', 'Banks', 'Adkins', '8821-1543', 'kerrieBA@example.com'),
 ('987654321', 'Xavier', 'Larson', 'Flynn', '32534-4255', 'xaviLF@example.com');
 
+
+INSERT Employee(identification, name, lastname1, lastname2, phone, hour_cost) VALUES 
+('304920877', 'Marc', 'Kelley', 'Nolan', '653-5167927', 1000),
+('664556705', 'Melody', 'James', 'Cummings', '379709-4241', 1100),
+('288785464', 'Dylan', 'Dixon', 'Blevins', '961-832-5642', 1050),
+('385982474', 'Jeannie', 'Faulkner', 'Kim', '167583-6508', 1300),
+('185455468', 'Maureen', 'Velasquez', 'Kaiser', '3640729480', 1500),
+('455065758', 'Jim', 'Peck', 'Stephenson', '157745-1285', 2000),
+('536135785', 'Kathryn', 'Beasley', 'Harrison', '2249174400', 2350),
+('278801474', 'Erica', 'Stevens', 'Shields', '093-183-8121', 1800),
+('184828587', 'Bobbie', 'Francis', 'Fuentes', '896-6990883', 800),
+('610726107', 'Craig', 'Payne', 'Greer', '344-196-4906', 800),
+('122356107', 'Shawn', 'Gaines', 'Mc Cormick', '7954780060', 800),
+('335406107', 'Ivan', 'Boyd', 'Terrell', '200-4688348', 700),
+('681176107', 'Meghan', 'Mckenzie', 'Morrison', '692-0295590', 750),
+('613766137', 'Angie', 'Sims', 'Howe', '0354961097', 900),
+('204676136', 'Kelley', 'Stevenson', 'Gutierrez', '530-1749038', 950),
+('560991376', 'Ernesto', 'Hines', 'Aguyen', '978-5757362', 1000),
+('053845985', 'Randall', 'Mueller', 'Sanford', '032154-2986', 1050),
+('656495982', 'Dion', 'Lloyd', 'Wallace', '367-3283827', 950),
+('959828177', 'Marvin', 'Cantrell', 'Terrell', '711-683-3238', 950),
+('601598232', 'Rex', 'Ritter', 'Joseph', '698064-7537', 600);
+
+INSERT INTO Role_specification (specification) VALUES
+ ('Albañil'),
+ ('Aquitecto'),
+ ('Ingeniero Electrico'),
+ ('Ingeniero Civil'),
+ ('Ingeniero Materiales');
+
 INSERT INTO Project (name, ubication, id_client, manager) VALUES
 ('Casa de habitacion', 'Guanacaste', '304920850', 6),
 ('Condominios', 'Cartago', '304920850', 7),
@@ -91,36 +121,6 @@ INSERT INTO Stage(id_project, name, description, start_date, end_date) VALUES
 (4, 'Ventanas', 'Se ponen los vidrios en las ventanas', '07/27/2018' ,'07/27/2018');
 
 
-
-
-INSERT Employee(identification, name, lastname1, lastname2, phone, hour_cost) VALUES 
-('304920877', 'Marc', 'Kelley', 'Nolan', '653-5167927', 1000),
-('664556705', 'Melody', 'James', 'Cummings', '379709-4241', 1100),
-('288785464', 'Dylan', 'Dixon', 'Blevins', '961-832-5642', 1050),
-('385982474', 'Jeannie', 'Faulkner', 'Kim', '167583-6508', 1300),
-('185455468', 'Maureen', 'Velasquez', 'Kaiser', '3640729480', 1500),
-('455065758', 'Jim', 'Peck', 'Stephenson', '157745-1285', 2000),
-('536135785', 'Kathryn', 'Beasley', 'Harrison', '2249174400', 2350),
-('278801474', 'Erica', 'Stevens', 'Shields', '093-183-8121', 1800),
-('184828587', 'Bobbie', 'Francis', 'Fuentes', '896-6990883', 800),
-('610726107', 'Craig', 'Payne', 'Greer', '344-196-4906', 800),
-('122356107', 'Shawn', 'Gaines', 'Mc Cormick', '7954780060', 800),
-('335406107', 'Ivan', 'Boyd', 'Terrell', '200-4688348', 700),
-('681176107', 'Meghan', 'Mckenzie', 'Morrison', '692-0295590', 750),
-('613766137', 'Angie', 'Sims', 'Howe', '0354961097', 900),
-('204676136', 'Kelley', 'Stevenson', 'Gutierrez', '530-1749038', 950),
-('560991376', 'Ernesto', 'Hines', 'Aguyen', '978-5757362', 1000),
-('053845985', 'Randall', 'Mueller', 'Sanford', '032154-2986', 1050),
-('656495982', 'Dion', 'Lloyd', 'Wallace', '367-3283827', 950),
-('959828177', 'Marvin', 'Cantrell', 'Terrell', '711-683-3238', 950),
-('601598232', 'Rex', 'Ritter', 'Joseph', '698064-7537', 600);
-
-INSERT INTO Role_specification (specification) VALUES
- ('Albañil'),
- ('Ingeniero Electrico'),
- ('Aquitecto'),
- ('Ingeniero Civil'),
- ('Ingeniero Materiales');
 
 
 INSERT INTO Roles (id_role, id_employee) VALUES
