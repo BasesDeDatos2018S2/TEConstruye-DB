@@ -138,8 +138,7 @@ CREATE TABLE Bill(
 
 ALTER TABLE Project
 ADD Foreign Key (id_client) References Client(identification),
-	Foreign Key (manager) References Employee(id),
-	constraint manager_id check (manager>1);
+	Foreign Key (manager) References Employee(id);
 
 
 ALTER TABLE Anotations

@@ -66,6 +66,49 @@ CREATE TRIGGER ut_client_identification_not_editable
  END
  GO
 
+ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------Trigger para manager que no sea un albañil
+CREATE TRIGGER ut_manager_verification_update
+ ON Project
+ For Update
+ AS
+
+ Begin
+	If Update (manager)
+	Declare @inserted int;
+	Select @inserted = manager from inserted
+	
+
+	If (@inserted = 1)
+	Begin
+	RAISERROR (15600, -1, -1, 'Un albañil no puede ser Manager de un proyecto')
+	ROLLBACK TRANSACTION;
+	END
+ END
+ GO
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------Trigger para manager que no sea un albañil
+CREATE TRIGGER ut_manager_verification_insert
+ ON Project
+ For Insert
+ AS
+
+ Begin
+	Declare @inserted int;
+	Select @inserted = manager from inserted
+	
+
+	If (@inserted = 1)
+	Begin
+	RAISERROR (15600, -1, -1, 'Un albañil no puede ser Manager de un proyecto')
+	ROLLBACK TRANSACTION;
+	END
+ END
+ GO
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 --Stored Procedure para generar PRESUPUESTO segun ID del Proyecto
