@@ -52,6 +52,7 @@ INSERT INTO Passwords (id_employee, password) VALUES
 (20, 'AAAAAAAAAA20');
 
 INSERT INTO Role_specification (specification) VALUES
+ ('Administrador'),
  ('Albañil'),
  ('Aquitecto'),
  ('Ingeniero Electrico'),
