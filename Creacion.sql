@@ -68,6 +68,7 @@ CREATE TABLE Role_specification(
 CREATE TABLE Roles(
 	id_role				int			Not null,
 	id_employee			int			Not null,
+	start_date			date		Not null,
 	Primary Key (id_employee),
 );
 
