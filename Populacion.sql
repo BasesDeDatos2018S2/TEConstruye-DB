@@ -7,7 +7,7 @@ INSERT INTO Client (identification, name, lastname1, lastname2, phone, email) VA
 ('987654321', 'Xavier', 'Larson', 'Flynn', '32534-4255', 'xaviLF@example.com');
 
 
-INSERT Employee(identification, name, lastname1, lastname2, phone, hour_cost) VALUES 
+INSERT INTO Employee(identification, name, lastname1, lastname2, phone, hour_cost) VALUES 
 ('304920877', 'Marc', 'Kelley', 'Nolan', '653-5167927', 1000),
 ('664556705', 'Melody', 'James', 'Cummings', '379709-4241', 1100),
 ('288785464', 'Dylan', 'Dixon', 'Blevins', '961-832-5642', 1050),
@@ -28,6 +28,28 @@ INSERT Employee(identification, name, lastname1, lastname2, phone, hour_cost) VA
 ('656495982', 'Dion', 'Lloyd', 'Wallace', '367-3283827', 950),
 ('959828177', 'Marvin', 'Cantrell', 'Terrell', '711-683-3238', 950),
 ('601598232', 'Rex', 'Ritter', 'Joseph', '698064-7537', 600);
+
+INSERT INTO Passwords (id_employee, password) VALUES
+(1,  'AAAAAAAAAAA1'),
+(2,  'AAAAAAAAAAA2'),
+(3,  'AAAAAAAAAAA3'),
+(4,  'AAAAAAAAAAA4'),
+(5,  'AAAAAAAAAAA5'),
+(6,  'AAAAAAAAAAA6'),
+(7,  'AAAAAAAAAAA7'),
+(8,  'AAAAAAAAAAA8'),
+(9,  'AAAAAAAAAAA9'),
+(10, 'AAAAAAAAAA10'),
+(11, 'AAAAAAAAAA11'),
+(12, 'AAAAAAAAAA12'),
+(13, 'AAAAAAAAAA13'),
+(14, 'AAAAAAAAAA14'),
+(15, 'AAAAAAAAAA15'),
+(16, 'AAAAAAAAAA16'),
+(17, 'AAAAAAAAAA17'),
+(18, 'AAAAAAAAAA18'),
+(19, 'AAAAAAAAAA19'),
+(20, 'AAAAAAAAAA20');
 
 INSERT INTO Role_specification (specification) VALUES
  ('Albañil'),

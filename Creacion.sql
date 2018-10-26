@@ -57,6 +57,12 @@ CREATE TABLE Employee(
 	Primary Key (id),
 );
 
+CREATE TABLE Passwords(
+	id_employee		int				Not null,
+	password		varchar(12)		Not null,
+	Primary Key (id_employee),
+);
+
 
 CREATE TABLE Role_specification(
 	id					int			Not null		IDENTITY(1,1),
@@ -151,6 +157,10 @@ ADD Foreign Key (id_project) References Project(id);
 
 ALTER TABLE Employee
 ADD constraint positive_cost check (hour_cost>=0);
+
+ALTER TABLE Passwords
+ADD Foreign Key (id_employee) References Employee(id),
+	constraint password check(DATALENGTH(password) = 12);
 
 ALTER TABLE Roles
 ADD Foreign Key (id_employee) References Employee(id),
