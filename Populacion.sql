@@ -166,12 +166,6 @@ INSERT INTO Roles (id_role, id_employee, start_date) VALUES
 (5, 19,'01/03/2014'),
 (6, 20,'01/03/2014');
 
-Select * from Roles Where id_role = 1 --Administrador
-Select * from Roles Where id_role = 2 --Albanil
-Select * from Roles Where id_role = 3 --Arqui
-Select * from Roles Where id_role = 4 --Ing Electrico
-Select * from Roles Where id_role = 5 --Ing Civil
-Select * from Roles Where id_role = 6 --Ing Materiales
 
 
 
@@ -509,6 +503,39 @@ INSERT INTO Bill(date, serial, price, id_stage, id_material, id_provider) VALUES
  (4, 12, '01/03/2014', 8);
 
 
- Select * from Bill
+ Select * from Employee
  Select * from MaterialsxStage
  Select * from Stage
+ Select * from Project
+
+Select * from Roles Where id_role = 1 --Administrador
+Select * from Roles Where id_role = 2 --Albanil
+Select * from Roles Where id_role = 3 --Arqui
+Select * from Roles Where id_role = 4 --Ing Electrico
+Select * from Roles Where id_role = 5 --Ing Civil
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Select * from Roles Where id_role = 6 --Ing Materiales
+
+INSERT INTO Project (name, ubication, id_client, manager) VALUES
+('Casita de nanito', 'San Vito', '987654321', 4)
+

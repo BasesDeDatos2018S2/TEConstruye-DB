@@ -80,7 +80,7 @@ CREATE TRIGGER ut_manager_verification_update
 	Select @inserted = manager from inserted
 	
 
-	If (@inserted = 1)
+	If (@inserted > 2)
 	Begin
 	RAISERROR (15600, -1, -1, 'Un albañil no puede ser Manager de un proyecto')
 	ROLLBACK TRANSACTION;
@@ -229,7 +229,7 @@ AS
 /**
 
 --EXECUTE DE PRUEBA
-EXECUTE usp_budget @idProject = 2 
+EXECUTE usp_budget @idProject = 5
 GO
 EXECUTE usp_project_client
 GO
@@ -239,7 +239,7 @@ EXECUTE usp_expenses @first_date = '02/02/2014', @second_date = '02/10/2014', @i
 GO
 EXECUTE usp_status @id_proj = 1
 GO
-EXECUTE usp_total_bills @id_proj = 4
+EXECUTE usp_total_bills @id_proj = 5
 GO
 EXECUTE usp_total_stage @id_stage = 1
 GO
