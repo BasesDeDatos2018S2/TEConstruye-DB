@@ -216,14 +216,6 @@ AS
 	Where MS.id_stage = @id_stage
 GO
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Stored Procedure para obtener cedula dando id
-CREATE PROCEDURE usp_password_validation
-	@id_employ	int,
-	@pass		varchar(12)
-AS
-	Select 
-
 
 
 /**
