@@ -502,3 +502,4 @@ INSERT INTO Bill(date, serial, price, id_stage, id_material, id_provider) VALUES
  (4, 5, '01/10/2014', 8),
  (4, 12, '01/03/2014', 8);
 
+select * from Employee

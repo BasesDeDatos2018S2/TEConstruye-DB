@@ -221,7 +221,7 @@ GO
 
 CREATE PROCEDURE usp_posible_manager
 AS
-	Select E.id as Id_Employee
+	Select E.id as Id_Employee, E.identification as Identification, E.name as Name, E.lastname1 as Lastname1, E.lastname2 as Lastname2, E.phone as Phone, E.hour_cost as hour_cost
 	From Employee as E
 	Inner Join Roles as R on R.id_employee = E.id
 	Inner Join Role_specification as RS on RS.id = R.id_role
