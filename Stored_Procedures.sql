@@ -221,7 +221,7 @@ GO
 /**
 
 --EXECUTE DE PRUEBA
-EXECUTE usp_budget @idProject = 5
+EXECUTE usp_budget @idProject = 2
 GO
 EXECUTE usp_project_client
 GO

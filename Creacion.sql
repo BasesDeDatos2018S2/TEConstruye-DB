@@ -141,7 +141,8 @@ CREATE TABLE Bill(
 
 
 
-
+Alter Table Client
+ADD constraint identification check(DATALENGTH(identification) = 9);
 
 
 ALTER TABLE Project
@@ -157,7 +158,8 @@ ALTER TABLE Stage
 ADD Foreign Key (id_project) References Project(id);
 
 ALTER TABLE Employee
-ADD constraint positive_cost check (hour_cost>=0);
+ADD constraint positive_cost check (hour_cost>=0),
+	constraint identification check(DATALENGTH(identification) = 9);
 
 ALTER TABLE Passwords
 ADD Foreign Key (id_employee) References Employee(id),
