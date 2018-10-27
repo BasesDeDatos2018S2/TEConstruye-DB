@@ -109,16 +109,6 @@ CREATE TABLE MaterialsxStage(
 );
 
 
-/**CREATE TABLE Detalle(
-	id				int				Not null		IDENTITY(1,1),
-	nombre_material	varchar(20)		Not null,
-	cantidad		int				Not null,
-	precio			int				Not null,
-	id_factura		int				Not null		unique,
-	Primary Key(id)
-);**/
-
-
 CREATE TABLE Provider(
 	id				int				Not null		IDENTITY(1,1),
 	name			varchar(40)		Not null,

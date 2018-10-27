@@ -162,7 +162,7 @@ AS
 	Inner Join Bill as B on B.id_provider = Prv.id
 	Inner Join Stage as S on S.id = B.id_stage
 	Inner Join Project as Prj on Prj.id = S.id_project
-	Where Prj.id = @id_proj
+	Where Prj.id = @id_proj AND B.date >= @first_date AND B.date <= @second_date
 GO
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -216,18 +216,30 @@ AS
 	Where MS.id_stage = @id_stage
 GO
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Stored Procedure para obtener empleados que pueden ser ING o Arquitecto
+
+CREATE PROCEDURE usp_posible_manager
+AS
+	Select E.id as Id_Employee
+	From Employee as E
+	Inner Join Roles as R on R.id_employee = E.id
+	Inner Join Role_specification as RS on RS.id = R.id_role
+	Where RS. id <> 1 AND RS. id <> 2
+GO
+
 
 
 /**
 
 --EXECUTE DE PRUEBA
-EXECUTE usp_budget @idProject = 2
+EXECUTE usp_budget @idProject = 1
 GO
 EXECUTE usp_project_client
 GO
 EXECUTE usp_employee_payment @first_date = '01/03/2014', @second_date = '01/10/2014'
 GO
-EXECUTE usp_expenses @first_date = '02/02/2014', @second_date = '02/10/2014', @id_proj = 1
+EXECUTE usp_expenses @first_date = '03/04/2014', @second_date = '03/25/2014', @id_proj = 1
 GO
 EXECUTE usp_status @id_proj = 1
 GO
@@ -236,6 +248,8 @@ GO
 EXECUTE usp_total_stage @id_stage = 1
 GO
 EXECUTE usp_material_stage @id_stage = 1
+GO
+EXECUTE  usp_posible_manager
 GO
 
 --DROP DE PRUEBA
@@ -255,6 +269,9 @@ DROP PROCEDURE usp_total_stage
 GO
 DROP PROCEDURE usp_material_stage
 GO
+DROP PROCEDURE usp_posible_manager
+GO
+
 
 DROP TRIGGER ut_validate_hours_price
 GO
