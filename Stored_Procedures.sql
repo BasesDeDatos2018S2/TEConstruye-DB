@@ -179,9 +179,50 @@ AS
 	Where S.id_project = @id_proj
 	
 GO
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Stored Procedure para obtener total en facturas por proyecto
+
+CREATE PROCEDURE usp_total_bills
+	@id_proj	int
+AS
+	Select	SUM(MS.quantity * MS.price) as TotalPresupuesto, SUM(MS.quantity * B.price) as TotalReal
+	From Bill as B
+	Inner Join MaterialsxStage as MS on MS.id_stage = B.id_stage and MS.id_material = B.id_material
+	Inner Join Stage as S on S.id = MS.id_stage
+	Inner Join Project as P on P.id = S.id_project 
+	Where S.id_project = @id_proj
+GO
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Stored Procedure para obtener totales por etapa
+CREATE PROCEDURE usp_total_stage
+	@id_stage	int
+AS
+	Select SUM(MS.quantity * MS.price) as TotalPresupuesto, SUM(MS.quantity * B.price) as TotalReal
+	From Bill as B
+	Inner Join MaterialsxStage as MS on MS.id_stage = B.id_stage and MS.id_material = B.id_material
+	Inner Join Stage as S on S.id = MS.id_stage
+	Inner Join Project as P on P.id = S.id_project 
+	Where MS.id_stage = @id_stage
+GO
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Stored Procedure para obtener ID material x Etapa
+CREATE PROCEDURE usp_material_stage
+	@id_stage	int
+AS
+	Select MS.id_material
+	From MaterialsxStage as MS
+	Where MS.id_stage = @id_stage
+GO
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Stored Procedure para obtener cedula dando id
+CREATE PROCEDURE usp_password_validation
+	@id_employ	int,
+	@pass		varchar(12)
+AS
+	Select 
 
 
 
@@ -196,7 +237,13 @@ EXECUTE usp_employee_payment @first_date = '01/03/2014', @second_date = '01/10/2
 GO
 EXECUTE usp_expenses @first_date = '02/02/2014', @second_date = '02/10/2014', @id_proj = 1
 GO
-EXECUTE usp_status @id_proj = 4
+EXECUTE usp_status @id_proj = 1
+GO
+EXECUTE usp_total_bills @id_proj = 4
+GO
+EXECUTE usp_total_stage @id_stage = 1
+GO
+EXECUTE usp_material_stage @id_stage = 1
 GO
 
 --DROP DE PRUEBA
@@ -210,11 +257,19 @@ DROP PROCEDURE usp_expenses
 Go
 DROP PROCEDURE usp_status
 Go
+DROP PROCEDURE usp_total_bills
+GO
+DROP PROCEDURE usp_total_stage
+GO
+DROP PROCEDURE usp_material_stage
+GO
+
 DROP TRIGGER ut_validate_hours_price
 GO
 DROP TRIGGER ut_employee_identification_not_editable
 GO
 DROP TRIGGER ut_client_identification_not_editable
 GO
+
 
 **/

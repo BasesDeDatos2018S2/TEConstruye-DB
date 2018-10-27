@@ -38,7 +38,7 @@ CREATE TABLE Stage(
 	id				int				Not null		IDENTITY(1,1),
 	id_project		int				Not null,
 	name			varchar(40)		Not null,
-	description		varchar(60)		Not null,
+	description		varchar(500)		Not null,
 	status			bit				Not null		default 0,
 	start_date		date			Not null,
 	end_date		date		Not null,
