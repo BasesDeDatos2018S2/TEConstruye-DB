@@ -53,7 +53,7 @@ INSERT INTO Passwords (id_employee, password) VALUES
 
 INSERT INTO Role_specification (specification) VALUES
  ('Administrador'),
- ('Albañil'),
+ ('Albanil'),
  ('Aquitecto'),
  ('Ingeniero Electrico'),
  ('Ingeniero Civil'),
@@ -147,24 +147,33 @@ INSERT INTO Stage(id_project, name, description, start_date, end_date) VALUES
 INSERT INTO Roles (id_role, id_employee, start_date) VALUES
 (1, 1, '11/13/2014'),
 (1, 2, '02/23/2014'),
-(1, 3, '06/09/2014'),
-(1, 4, '08/09/2014'),
-(1, 5, '01/01/2014'),
+(2, 3, '06/09/2014'),
+(2, 4, '08/09/2014'),
+(2, 5, '01/01/2014'),
 (2, 6, '03/04/2014'),
 (3, 7, '05/06/2014'),
 (4, 8, '01/07/2014'),
 (5, 9, '01/03/2014'),
-(1, 10,'01/03/2014'),
-(1, 11,'01/03/2014'),
-(1, 12,'01/03/2014'),
-(1, 13,'01/03/2014'),
-(1, 14,'01/03/2014'),
-(1, 15,'01/03/2014'),
+(2, 10,'01/03/2014'),
+(2, 11,'01/03/2014'),
+(2, 12,'01/03/2014'),
+(2, 13,'01/03/2014'),
+(2, 14,'01/03/2014'),
+(6, 15,'01/03/2014'),
 (2, 16,'01/03/2014'),
 (3, 17,'01/03/2014'),
 (4, 18,'01/03/2014'),
 (5, 19,'01/03/2014'),
-(5, 20,'01/03/2014');
+(6, 20,'01/03/2014');
+
+Select * from Roles Where id_role = 1 --Administrador
+Select * from Roles Where id_role = 2 --Albanil
+Select * from Roles Where id_role = 3 --Arqui
+Select * from Roles Where id_role = 4 --Ing Electrico
+Select * from Roles Where id_role = 5 --Ing Civil
+Select * from Roles Where id_role = 6 --Ing Materiales
+
+
 
 /**INSERT INTO Worked_hours(id_project, id_employee, date, hours, hour_cost) VALUES
  (1, 1, '01/03/2014', 8, 1600),
