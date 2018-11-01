@@ -1,6 +1,7 @@
 USE TeConstruye
 GO
 
+
 INSERT INTO Client (identification, name, lastname1, lastname2, phone, email) VALUES
 ('304920850', 'Mauricio', 'Alvarez', 'Varela', '7202-4566', 'mau18alvarez@example.com'),
 ('123456789', 'Kerrie', 'Banks', 'Adkins', '8821-1543', 'kerrieBA@example.com'),
@@ -502,4 +503,3 @@ INSERT INTO Bill(date, serial, price, id_stage, id_material, id_provider) VALUES
  (4, 5, '01/10/2014', 8),
  (4, 12, '01/03/2014', 8);
 
-select * from Employee
